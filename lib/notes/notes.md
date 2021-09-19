@@ -33,3 +33,28 @@ Untuk membuat fixture, kita tinggal bikin file JSON nya dan bikin method untuk m
 tersebut menjadi JSONMap
 2. Bikin factory fromJson, lalu test apakah result dari factory method merupakan model yang tepat
 3. Bikin method toJson, lalu test apakah result dari method merupakan jsonMap yang tepat
+
+[VIDEO 5]
+lanjut bikin data layer, sekarang ngurusin repository & data sourcenya.
+1. Bikin implementasi data layer repository
+  - data's repository merupakan otak dari data layer, disitu akan 
+    diimplementasikan entity's repository
+  - agar repository bisa dites, dependency2 dari repository harus dibuat dulu.
+    repository di project ini bergantung pada: 
+    1. model (udah dibuat): tipe data dari data yg diproses 
+    2. network info: dibutuhkan untuk mengecek konektifitas internet, karena data akan diambil dari API
+    3. data source: sumber data repository 
+
+2. Bikin kelas network info:
+   - bikin kelas network info, didalemnya ada variabel yg menyatakan status konektifitas
+   - taro di core/platform. pokoknya yg ada kaitannya dgn hp seperti 
+     sensor, bluetooth dll masuk platform  
+
+3. bikin remote data source 
+   - di data source, akan implementasi metod yg sama kaya di entity's repository, bedanya
+     return typenya hanyalah model, bukan either (gaada failure class). 
+     ini karena data source merupakan layer paling ujung aplikasi yg membatasi dgn dunia luar.
+     --> untuk implemen error, bikin class baru yaitu exception, jadi kalau trycatch nya fail, 
+         akan dihandle oleh kelas ini
+
+  
