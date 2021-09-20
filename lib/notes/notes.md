@@ -36,7 +36,8 @@ tersebut menjadi JSONMap
 
 [VIDEO 5]
 lanjut bikin data layer, sekarang ngurusin repository & data sourcenya.
-1. Bikin implementasi data layer repository
+di video ini hanya akan di jelaskan persiapan2 untuk melakukan implementasi repository.
+1. Bikin kelas di data layer untuk implemen repository
   - data's repository merupakan otak dari data layer, disitu akan 
     diimplementasikan entity's repository
   - agar repository bisa dites, dependency2 dari repository harus dibuat dulu.
@@ -54,7 +55,20 @@ lanjut bikin data layer, sekarang ngurusin repository & data sourcenya.
    - di data source, akan implementasi metod yg sama kaya di entity's repository, bedanya
      return typenya hanyalah model, bukan either (gaada failure class). 
      ini karena data source merupakan layer paling ujung aplikasi yg membatasi dgn dunia luar.
-     --> untuk implemen error, bikin class baru yaitu exception, jadi kalau trycatch nya fail, 
-         akan dihandle oleh kelas ini
+     
+3.5 bikin kelas untuk handle exception
+   - untuk implemen error, bikin class baru yaitu exception, jadi kalau trycatch nya fail, 
+     akan dihandle oleh kelas ini
 
-  
+4. bikin local data source
+   - di kelas ini, ada dua metode, yaitu:
+     1. metode untuk mengambil trivia yg disimpan di cache
+     2. metode untuk menyimpan trivia terakhir  
+
+5. bikin unit test
+   seperti biasa sebelum implementasi, harus dilakukan tes.
+   di video ini, baru dilakukan persiapan untuk melakukan tes, yaitu bikin mock class  
+
+[VIDEO 6]
+disini mulai implementasi repository di data layer. akan ada beberapa step unit test.
+1. Bikin unit test untuk cek konektifitas
