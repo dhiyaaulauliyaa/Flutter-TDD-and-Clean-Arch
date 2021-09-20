@@ -1,3 +1,4 @@
+import 'package:clean_arch_tdd_ex/features/number_trivia/data/models/number_trivia_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/platform/network_info.dart';
@@ -25,7 +26,14 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
     int? number,
   ) async {
     networkInfo.isConnected;
-    return Right(await remoteDataSource.getConcreteNumberTrivia(number));
+    
+    final remoteTrivia = await remoteDataSource.getConcreteNumberTrivia(
+      number,
+    );
+
+    localDataSource.cacheNumberTrivia(remoteTrivia as NumberTriviaModel);
+
+    return Right(remoteTrivia);
   }
 
   @override

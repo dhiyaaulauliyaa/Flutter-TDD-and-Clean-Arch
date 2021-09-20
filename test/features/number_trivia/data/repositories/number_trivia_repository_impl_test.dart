@@ -75,7 +75,23 @@ void main() {
       },
     );
     
-   
+    /* Cache latest data */
+    test(
+      'should cache the remote data when device is online',
+      () async {
+        // Arrange
+        when(mockRemoteDataSource.getConcreteNumberTrivia(tNumber)).thenAnswer(
+          (_) async => tNumberTriviaModel,
+        );
+
+        // Act
+        await repository.getConcreteNumberTrivia(tNumber);
+
+        // Assert
+        verify(mockRemoteDataSource.getConcreteNumberTrivia(tNumber));
+        verify(mockLocalDataSource.cacheNumberTrivia(tNumberTriviaModel));
+      },
+    );
   });
 
   /* Check when device offline */
