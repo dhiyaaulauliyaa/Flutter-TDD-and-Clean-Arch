@@ -1,3 +1,5 @@
+import 'package:clean_arch_tdd_ex/core/error/exceptions.dart';
+import 'package:clean_arch_tdd_ex/core/error/failures.dart';
 import 'package:clean_arch_tdd_ex/features/number_trivia/data/models/number_trivia_model.dart';
 import 'package:clean_arch_tdd_ex/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:dartz/dartz.dart';
@@ -26,7 +28,7 @@ void main() {
   );
 
   group('getConcreteNumberTrivia', () {
-    final tNumber = 1;
+    // final tNumber = 1;
 
     /* Check network info */
     test(
@@ -53,9 +55,11 @@ void main() {
     );
     final NumberTrivia tNumberTrivia = tNumberTriviaModel;
 
-    setUp(() => () {
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-        });
+    setUp(
+      () => () {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      },
+    );
 
     /* Get remote data */
     test(
@@ -74,13 +78,13 @@ void main() {
         expect(result, equals(Right(tNumberTrivia)));
       },
     );
-    
+
     /* Cache latest data */
     test(
       'should cache the remote data when device is online',
       () async {
         // Arrange
-        when(mockRemoteDataSource.getConcreteNumberTrivia(tNumber)).thenAnswer(
+        when(mockRemoteDataSource.getConcreteNumberTrivia(any)).thenAnswer(
           (_) async => tNumberTriviaModel,
         );
 
@@ -96,8 +100,33 @@ void main() {
 
   /* Check when device offline */
   group('device is offline', () {
-    setUp(() => () {
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-        });
+    final tNumber = 1;
+
+    setUp(
+      () => () {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      },
+    );
+
+    /* Get remote data (error) */
+    // test(
+    //   'should return remote data (number trivia) when device is online',
+    //   () async {
+    //     // Arrange
+    //     when(mockRemoteDataSource.getConcreteNumberTrivia(any)).thenThrow(
+    //       ServerException(),
+    //     );
+
+    //     // Act
+    //     final result = await repository.getConcreteNumberTrivia(tNumber);
+
+    //     // Assert
+    //     verify(mockRemoteDataSource.getConcreteNumberTrivia(tNumber));
+    //     verifyZeroInteractions(mockLocalDataSource);
+    //     expect(result, equals(Left(ServerFailure())));
+    //   },
+    // );
+
+    /* Return  */
   });
 }
